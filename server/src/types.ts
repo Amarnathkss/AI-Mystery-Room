@@ -1,0 +1,6 @@
+export type Difficulty = 'EASY' | 'STANDARD' | 'HARD';
+export type EvidenceType = 'CHAT' | 'IMAGE' | 'CCTV' | 'DOCUMENT';
+export type CaseStatus = 'QUEUED' | 'GENERATING_PLAN' | 'GENERATING_EVIDENCE' | 'VALIDATING' | 'READY' | 'FAILED';
+export interface Suspect { id: string; name: string; role: string; profile: string; context: string; publicAlibi?: string }
+export interface Evidence { id: string; type: EvidenceType; status: 'READY' | 'FALLBACK'; title: string; sourceLabel: string; summary: string; inWorldAt?: string; fictionalLabel: 'AI-GENERATED FICTIONAL EVIDENCE'; payload: Record<string, unknown> }
+export interface MysteryCase { id: string; owner: string; storyInput: string; difficulty: Difficulty; tone: string; status: CaseStatus; progress: { stage: string; percent: number; message: string }; createdAt: string; expiresAt?: Date; title?: string; intro?: string; incidentSummary?: string; setting?: string; suspects: Suspect[]; evidence: Evidence[]; publicTimeline: { at: string; event: string }[]; solution?: { culpritId: string; motive: string; method: string; timeline: { at: string; event: string }[]; decisiveEvidenceIds: string[]; redHerrings: { evidenceId: string; explanation: string }[]; summary: string }; accusation?: { suspectId: string; reasoning?: string; isCorrect: boolean; score: 0 | 100; submittedAt: string } }
